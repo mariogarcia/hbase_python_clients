@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "hbasegs"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+happybase = "^1.2.0"
+aiohappybase = "^1.4.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+create = "hbasegs.synchronous:hbase_create"
+insert = "hbasegs.synchronous:hbase_put"
+search = "hbasegs.synchronous:hbase_scan"
+search_more_filters = "hbasegs.synchronous:hbase_scan_more_filters"
+async_insert = "hbasegs.asynchronous:hbase_put"
+async_search = "hbasegs.asynchronous:hbase_aio_use_case_main"
+
