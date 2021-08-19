@@ -59,7 +59,8 @@ async def hbase_put_asyn():
         print("INSERTION PROCESS FINISHED!")
 
 
-async def query(pool, temperature):
+async def query(pool, temperature, operation_name):
+    print("{} executing!".format(operation_name))
     async with pool.connection() as conn:
         table = conn.table('iot')
         initial_dt = dt.datetime.now()
@@ -78,23 +79,21 @@ async def query(pool, temperature):
 
 
 def light_op_1(pool):
-    print("light_op_1")
-    return query(pool, 25)
+    return query(pool, 25, 'light_op_1')
 
 
 def light_op_2(pool):
-    print("light_op_2")
-    return query(pool, 26)
+    return query(pool, 26, 'light_op_2')
 
 
 async def heavy_operation_1(pool):
     await asyncio.sleep(2)    
-    print("heavy_operation_1\n")    
-    result = await query(pool, 27)
+    result = await query(pool, 27, 'heavy_operation_1')
     return result
 
 
 def print_results(title, results):
+    print("")
     title = "{} RESULTS".format(title)
     print(title)
     print("=" * len(title))
@@ -103,7 +102,6 @@ def print_results(title, results):
             print(r)
     else:
         print("NO RESULTS")
-    print("")
 
 
 async def heavy_operation_aio():
